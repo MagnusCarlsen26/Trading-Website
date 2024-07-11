@@ -1,31 +1,27 @@
-// import { userTable,init } from '@/lib/mongo/auth';
-import { clientPromise } from '@/lib/mongo/index';
+import { authDb } from '@/lib/mongo/index';
 import User from '@/lib/schemas/user'
-
 import { NextResponse } from 'next/server';
-import bcrypt, { compareSync, hash } from 'bcrypt'
+import bcrypt from 'bcrypt'
+import {uuid} from 'uuidv4'
+import Otp from '@/lib/schemas/otp';
 
 async function getuserTable(username,email) {
-    const query = {
-        $or: [
-            { username },
-            { email },
-        ]
-        };
-    
+    const query = { $or: [ { username }, { email }, ] };
     return await User.findOne(query) 
 } 
 
-async function saveUser(username,email,password) {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    console.log(hashedPassword)
-    await User.create({username,email,password : hashedPassword
+async function saveOtp(otp,sessionId) {
+    await Otp.create({
+        otp,
+        createdAt : Date.now(),
+        sessionId
     })
 }
 
 export async function POST(req,res) {
     try {
-        await clientPromise()
+        console.log('HI')
+        await authDb()
         const data = await req.json(); 
         const { username, email ,password } = data;
         
@@ -41,9 +37,13 @@ export async function POST(req,res) {
                 data : { message : `Already exists ${message}`  }
             })
         } else {
-            await saveUser(username,email,password)
-            console.log("HI")
-            return NextResponse.redirect( new URL('http://localhost:3000/otp') , req.url )
+            const sessionId = uuid().replace(/-/g, '');
+            const otp = 100000 + Math.floor(Math.random()*899999)
+            await saveOtp(otp,sessionId)
+            return NextResponse.json({
+                success : true,
+                data : { sessionId }
+            })
         }
     } catch(error) {
         console.log(error)

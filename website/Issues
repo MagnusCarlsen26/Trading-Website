@@ -1,0 +1,4 @@
+1. Rate limiting
+2. Rerouting to (auth)/otp not working in /api/signup
+3. table name in compass and code aren't same for userTable.
+4. Check IP during signup and otp. All the IPs should be same.

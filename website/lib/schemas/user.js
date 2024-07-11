@@ -6,6 +6,6 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
 });
 
-const User = mongoose.models.userTable ||mongoose.model('userTable', userSchema); // Corrected model name 
+const User = mongoose.models.userTable || mongoose.model('userTable', userSchema); // Corrected model name 
 
 export default User;  
