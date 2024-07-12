@@ -1,10 +1,14 @@
-import mongoose, { mongo } from "mongoose";
-import { number, string } from "zod";
+import mongoose     from "mongoose";
 
 const otpSchema = new mongoose.Schema({
     otp : { type : Number },
-    createdAt : { type : Date },
+    createdAt : { type : Number },
     sessionId : { type : String },
+    tries : { type : Number },
+    username : { type : String },
+    email : { type : String },
+    password : { type : String }
+
 })
 
 const Otp = mongoose.models.otpTable || mongoose.model("otpTable",otpSchema)

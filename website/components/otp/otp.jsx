@@ -12,9 +12,9 @@ export default function CheckOtp() {
         try {
             const response = await axios.post("http://localhost:3000/api/auth/otp",{
                 otp,
-                sessionId : "1febd9b5924744d7855f9b4f01bd3114",
+                sessionId : "acf441600e714ebdaa008777874c5a08",
             })
-            console.log(response)
+            console.log(response.data)
         } catch (error) {
             console.error(error)
         }

@@ -2,3 +2,7 @@
 2. Rerouting to (auth)/otp not working in /api/signup
 3. table name in compass and code aren't same for userTable.
 4. Check IP during signup and otp. All the IPs should be same.
+5. UI for otp (auth)/otp/[sessionId]
+6. Expiry of OTP logic
+7. Unix timestampl✔️
+8. Checking if the user doesn't submit same OTP accidently
