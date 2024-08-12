@@ -14,8 +14,9 @@ async function getuserTable(username,password) {
     return "No username found"
 }
 
-export async function POST(req,res) {
+export async function GET(req,res) {
     try{
+        console.log('HI')
         await authDb()
         const data = await req.json()
         const { username,password } = data
@@ -32,9 +33,7 @@ export async function POST(req,res) {
             username,
             password
             },
-            jwt_secret,{
-                expiresIn : '1h'
-            }
+            jwt_secret,{ expiresIn : '1h' }
         )
         return NextResponse.json({
             success : true,

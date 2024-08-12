@@ -6,7 +6,8 @@ const app = express()
 const server = http.createServer(app)
 const io = socketIo(server)
 
-let orderbook = {   
+let orderbook = {
+    // todo : might need to modify logic of orderbook, to meet market makers   
   "yes" : {
     "0.5" : 0,
     "1" : 0,
